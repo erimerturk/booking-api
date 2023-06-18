@@ -1,7 +1,7 @@
 package dev.eerturk.booking.web;
 
-import dev.eerturk.booking.domain.BookingDetailResponse;
-import dev.eerturk.booking.domain.BookingService;
+import dev.eerturk.booking.dto.BookingDetailResponse;
+import dev.eerturk.booking.service.BookingService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

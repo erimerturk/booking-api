@@ -1,7 +1,7 @@
 package dev.eerturk.booking;
 
-import dev.eerturk.booking.domain.BookingDetailResponse;
-import dev.eerturk.booking.domain.Status;
+import dev.eerturk.booking.dto.BookingDetailResponse;
+import dev.eerturk.booking.model.Status;
 import dev.eerturk.booking.web.CreateBookingRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ class BookingApiApplicationTests {
                 )
                 .returnResult().getResponseBody();
 
-        List<BookingDetailResponse> bookings = webTestClient
+        webTestClient
                 .get()
                 .uri("/bookings")
                 .exchange()

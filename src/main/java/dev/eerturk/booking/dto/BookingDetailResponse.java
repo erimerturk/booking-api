@@ -1,4 +1,6 @@
-package dev.eerturk.booking.domain;
+package dev.eerturk.booking.dto;
+
+import dev.eerturk.booking.model.Status;
 
 import java.time.LocalDate;
 

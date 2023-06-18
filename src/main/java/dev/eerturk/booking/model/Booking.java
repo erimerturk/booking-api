@@ -1,10 +1,11 @@
-package dev.eerturk.booking.domain;
+package dev.eerturk.booking.model;
 
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,9 +17,10 @@ import java.util.stream.Collectors;
 @ToString(exclude = "dates")
 @Getter
 @Setter
+@Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-class Booking {
+public class Booking {
 
     @Id
     @GeneratedValue

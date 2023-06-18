@@ -1,7 +1,7 @@
 package dev.eerturk.booking.web;
 
-import dev.eerturk.booking.domain.BookingDetailResponse;
-import dev.eerturk.booking.domain.Status;
+import dev.eerturk.booking.dto.BookingDetailResponse;
+import dev.eerturk.booking.model.Status;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;

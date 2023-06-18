@@ -1,5 +1,8 @@
-package dev.eerturk.booking.domain;
+package dev.eerturk.booking.dao;
 
+import dev.eerturk.booking.model.Booking;
+import dev.eerturk.booking.model.BookingType;
+import dev.eerturk.booking.model.Status;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

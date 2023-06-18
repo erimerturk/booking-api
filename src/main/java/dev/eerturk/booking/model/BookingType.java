@@ -1,4 +1,4 @@
-package dev.eerturk.booking.domain;
+package dev.eerturk.booking.model;
 
 public enum BookingType {
     RESERVATION, BLOCK

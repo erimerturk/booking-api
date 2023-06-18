@@ -1,5 +1,14 @@
-package dev.eerturk.booking.domain;
+package dev.eerturk.booking.service;
 
+import dev.eerturk.booking.BookingIsNotDeleteAbleException;
+import dev.eerturk.booking.BookingNotFoundException;
+import dev.eerturk.booking.ReservationAlreadyExistsException;
+import dev.eerturk.booking.dao.BookingDateRepository;
+import dev.eerturk.booking.dao.BookingRepository;
+import dev.eerturk.booking.dto.BookingDetailResponse;
+import dev.eerturk.booking.model.Booking;
+import dev.eerturk.booking.model.BookingType;
+import dev.eerturk.booking.model.Status;
 import dev.eerturk.booking.web.CreateBookingRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +26,7 @@ public class BookingService {
         this.bookingDateRepository = bookingDateRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<BookingDetailResponse> findAll() {
         return repository.findAll()
                 .stream()
@@ -32,16 +42,14 @@ public class BookingService {
 
     @Transactional
     public BookingDetailResponse create(CreateBookingRequest command) {
-
         Booking booking = new Booking();
-        booking.setStatus(Status.ACTIVE);
-        booking.setStartDate(command.startDate());
-        booking.setEndDate(command.endDate());
-        booking.setGuestId(command.guestId());
-        booking.setPropertyId(command.propertyId());
-        booking.setBookingType(command.guestId() != null ? BookingType.RESERVATION : BookingType.BLOCK);
+        booking.setStatus(Status.ACTIVE)
+                .setStartDate(command.startDate())
+                .setEndDate(command.endDate())
+                .setGuestId(command.guestId())
+                .setPropertyId(command.propertyId())
+                .setBookingType(command.guestId() != null ? BookingType.RESERVATION : BookingType.BLOCK);
         booking.initDates();
-
         validateBookingDates(booking);
         repository.save(booking);
         return new BookingDetailResponse(
@@ -55,7 +63,6 @@ public class BookingService {
     }
 
     private void validateBookingDates(Booking booking) {
-        //Assume write in mail
         if (booking.isBlock()) {
             boolean existReservation = bookingDateRepository.existsByPropertyIdAndBookingTypeAndDateBetween(
                     booking.getPropertyId(),
@@ -80,13 +87,10 @@ public class BookingService {
 
     @Transactional
     public void delete(Long id) {
-
         Booking booking = getBookingBy(id);
-
         if (!booking.isBlock()) {
             throw new BookingIsNotDeleteAbleException(id);
         }
-
         repository.delete(booking);
     }
 

@@ -1,4 +1,4 @@
-package dev.eerturk.booking.domain;
+package dev.eerturk.booking.model;
 
 
 import jakarta.persistence.*;
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-class BookingDate {
+public class BookingDate {
 
     @Id
     @GeneratedValue

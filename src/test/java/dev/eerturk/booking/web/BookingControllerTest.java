@@ -1,7 +1,11 @@
 package dev.eerturk.booking.web;
 
-import dev.eerturk.booking.domain.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.eerturk.booking.BookingNotFoundException;
+import dev.eerturk.booking.ReservationAlreadyExistsException;
+import dev.eerturk.booking.dto.BookingDetailResponse;
+import dev.eerturk.booking.model.Status;
+import dev.eerturk.booking.service.BookingService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -45,7 +49,7 @@ class BookingControllerTest {
         doThrow(ReservationAlreadyExistsException.class).when(bookingService)
                 .rebook(id);
         mockMvc
-                .perform(delete("/bookings/" + id + "/rebook"))
+                .perform(put("/bookings/" + id + "/rebook"))
                 .andExpect(status().is4xxClientError());
     }
 

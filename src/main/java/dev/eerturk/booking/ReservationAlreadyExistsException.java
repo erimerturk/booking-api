@@ -1,4 +1,4 @@
-package dev.eerturk.booking.domain;
+package dev.eerturk.booking;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

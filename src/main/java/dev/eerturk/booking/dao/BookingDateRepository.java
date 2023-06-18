@@ -1,6 +1,8 @@
-package dev.eerturk.booking.domain;
+package dev.eerturk.booking.dao;
 
 
+import dev.eerturk.booking.model.BookingDate;
+import dev.eerturk.booking.model.BookingType;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

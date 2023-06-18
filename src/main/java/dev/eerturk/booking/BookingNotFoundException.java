@@ -1,4 +1,4 @@
-package dev.eerturk.booking.domain;
+package dev.eerturk.booking;
 
 public class BookingNotFoundException extends RuntimeException {
     public BookingNotFoundException(Long id) {

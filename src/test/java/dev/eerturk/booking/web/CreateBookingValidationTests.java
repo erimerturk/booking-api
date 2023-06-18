@@ -1,6 +1,5 @@
-package dev.eerturk.booking.domain;
+package dev.eerturk.booking.web;
 
-import dev.eerturk.booking.web.CreateBookingRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;

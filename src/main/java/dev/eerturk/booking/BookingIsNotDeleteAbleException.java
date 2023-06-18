@@ -1,4 +1,4 @@
-package dev.eerturk.booking.domain;
+package dev.eerturk.booking;
 
 public class BookingIsNotDeleteAbleException extends RuntimeException {
     public BookingIsNotDeleteAbleException(Long id) {

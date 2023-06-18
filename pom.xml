@@ -88,13 +88,6 @@
                             <BP_JVM_VERSION>17</BP_JVM_VERSION>
                         </env>
                     </image>
-<!--                    <docker>-->
-<!--                        <publishRegistry>-->
-<!--                            <url>${docker.publishRegistry.url}</url>-->
-<!--                            <username>${docker.publishRegistry.username}</username>-->
-<!--                            <password>${docker.publishRegistry.password}</password>-->
-<!--                        </publishRegistry>-->
-<!--                    </docker>-->
                 </configuration>
             </plugin>
         </plugins>
