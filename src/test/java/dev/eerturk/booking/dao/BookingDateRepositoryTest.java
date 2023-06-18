@@ -1,87 +1,87 @@
 package dev.eerturk.booking.dao;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import dev.eerturk.booking.model.Booking;
 import dev.eerturk.booking.model.BookingType;
 import dev.eerturk.booking.model.Status;
+import java.time.LocalDate;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.time.LocalDate;
-import java.util.Arrays;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("integration")
 class BookingDateRepositoryTest {
 
-    @Autowired
-    private BookingRepository repository;
+  @Autowired private BookingRepository repository;
 
-    @Autowired
-    private BookingDateRepository bookingDateRepository;
+  @Autowired private BookingDateRepository bookingDateRepository;
 
-    @Test
-    void shouldVerifyExistsByPropertyIdAndBookingTypeAndDateBetween() {
-        Booking booking = new Booking();
-        booking.setStartDate(LocalDate.now().plusDays(10));
-        booking.setEndDate(LocalDate.now().plusDays(20));
-        booking.setGuestId(333l);
-        booking.setPropertyId(222l);
-        booking.setStatus(Status.ACTIVE);
-        booking.setBookingType(BookingType.RESERVATION);
-        booking.initDates();
+  @Test
+  void shouldVerifyExistsByPropertyIdAndBookingTypeAndDateBetween() {
+    Booking booking = new Booking();
+    booking.setStartDate(LocalDate.now().plusDays(10));
+    booking.setEndDate(LocalDate.now().plusDays(20));
+    booking.setGuestId(333l);
+    booking.setPropertyId(222l);
+    booking.setStatus(Status.ACTIVE);
+    booking.setBookingType(BookingType.RESERVATION);
+    booking.initDates();
 
+    Booking booking2 = new Booking();
+    booking2.setStartDate(LocalDate.now().plusDays(10));
+    booking2.setEndDate(LocalDate.now().plusDays(20));
+    booking2.setGuestId(333l);
+    booking2.setPropertyId(4444l);
+    booking2.setStatus(Status.ACTIVE);
+    booking2.setBookingType(BookingType.RESERVATION);
+    booking2.initDates();
 
-        Booking booking2 = new Booking();
-        booking2.setStartDate(LocalDate.now().plusDays(10));
-        booking2.setEndDate(LocalDate.now().plusDays(20));
-        booking2.setGuestId(333l);
-        booking2.setPropertyId(4444l);
-        booking2.setStatus(Status.ACTIVE);
-        booking2.setBookingType(BookingType.RESERVATION);
-        booking2.initDates();
+    repository.saveAll(Arrays.asList(booking, booking2));
 
-        repository.saveAll(Arrays.asList(booking, booking2));
-
-        assertThat(bookingDateRepository.existsByPropertyIdAndBookingTypeAndDateBetween(
+    assertThat(
+            bookingDateRepository.existsByPropertyIdAndBookingTypeAndDateBetween(
                 booking.getPropertyId(),
                 BookingType.RESERVATION,
                 booking.getStartDate(),
-                booking.getStartDate().plusDays(100))
-        ).isTrue();
+                booking.getStartDate().plusDays(100)))
+        .isTrue();
 
-        assertThat(bookingDateRepository.existsByPropertyIdAndBookingTypeAndDateBetween(
+    assertThat(
+            bookingDateRepository.existsByPropertyIdAndBookingTypeAndDateBetween(
                 booking.getPropertyId(),
                 BookingType.BLOCK,
                 booking.getStartDate(),
-                booking.getStartDate().plusDays(100))
-        ).isFalse();
+                booking.getStartDate().plusDays(100)))
+        .isFalse();
 
-        assertThat(bookingDateRepository.existsByPropertyIdAndBookingTypeAndDateBetween(
+    assertThat(
+            bookingDateRepository.existsByPropertyIdAndBookingTypeAndDateBetween(
                 booking.getPropertyId(),
                 BookingType.RESERVATION,
                 booking.getStartDate().plusDays(90),
-                booking.getStartDate().plusDays(100))
-        ).isFalse();
+                booking.getStartDate().plusDays(100)))
+        .isFalse();
 
-        assertThat(bookingDateRepository.existsByPropertyIdAndBookingTypeAndDateBetween(
+    assertThat(
+            bookingDateRepository.existsByPropertyIdAndBookingTypeAndDateBetween(
                 booking.getPropertyId(),
                 BookingType.RESERVATION,
                 booking.getStartDate().minusDays(100),
-                booking.getStartDate().minusDays(90))
-        ).isFalse();
+                booking.getStartDate().minusDays(90)))
+        .isFalse();
 
-        assertThat(bookingDateRepository.existsByPropertyIdAndBookingTypeAndDateBetween(
+    assertThat(
+            bookingDateRepository.existsByPropertyIdAndBookingTypeAndDateBetween(
                 booking.getPropertyId(),
                 BookingType.RESERVATION,
                 booking.getStartDate().minusDays(10),
-                booking.getStartDate())
-        ).isTrue();
-    }
-
+                booking.getStartDate()))
+        .isTrue();
+  }
 }
